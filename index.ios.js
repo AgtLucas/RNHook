@@ -61,9 +61,73 @@ var Hook = React.createClass({
             selectTextOnFocus={true}
           />
         </View>
+        <View style={styles.row}>
+          <Text>
+            {'Longitude'}
+          </Text>
+          <TextInput
+            value={'' + region.longitude}
+            style={styles.textInput}
+            onChange={this._onChangeLongitude}
+            selectTextOnFocus={true}
+          />
+        </View>
+        <View style={styles.row}>
+          <Text>
+            {'Latitude delta'}
+          </Text>
+          <TextInput
+            value={'' + region.latitudeDelta}
+            style={styles.textInput}
+            onChange={this._onChangeLatitudeDelta}
+            selectTextOnFocus={true}
+          />
+        </View>
+        <View style={styles.row}>
+          <Text>
+            {'Longitude delta'}
+          </Text>
+          <TextInput
+            value={'' + region.longitudeDelta}
+            style={styles.textInput}
+            onChange={this._onChangeLongitudeDelta}
+            selectTextOnFocus={true}
+          />
+        </View>
+        <View style={styles.changeButton}>
+          <Text onPress={this._change}>
+            {'Change'}
+          </Text>
+        </View>
       </View>
-    )
-  }
+    );
+  },
+
+  _onChangeLatitude: function(e) {
+    regionText.latitude = e.nativeEvent.text;
+  },
+
+  _onChangeLongitude: function(e) {
+    regionText.longitude = e.nativeEvent.text;
+  },
+
+  _onChangeLatitudeDelta: function(e) {
+    regionText.latitudeDelta = e.nativeEvent.text;
+  },
+
+  _onChangeLongitudeDelta: function(e) {
+    regionText.longitudeDelta = e.nativeEvent.text;
+  },
+
+  _change: function() {
+    this.setState({
+      latitude: parseFloat(regionText.latitude),
+      longitude: parseFloat(regionText.longitude),
+      latitudeDelta: parseFloat(regionText.latitudeDelta),
+      longitudeDelta: parseFloat(regionText.longitudeDelta),
+    });
+    this.props.onChange(this.state.region);
+  },
 });
 
 var styles = StyleSheet.create({
