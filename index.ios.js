@@ -47,7 +47,22 @@ var Hook = React.createClass({
   },
 
   render: function() {
-    
+    var region: this.state.region || this.getInitialState().region;
+    return (
+      <View>
+        <View style={styles.row}>
+          <Text>
+            {'Latitude'}
+          </Text>
+          <TextInput
+            value={'' + region.latitude}
+            style={styles.textInput}
+            onChange={this._onChangeLatitude}
+            selectTextOnFocus={true}
+          />
+        </View>
+      </View>
+    )
   }
 });
 
