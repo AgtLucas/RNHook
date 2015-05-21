@@ -1,11 +1,8 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 
 var React = require('react-native');
 var StyleSheet = require('StyleSheet');
+
 var {
   MapView,
   AppRegistry,
@@ -13,6 +10,13 @@ var {
   Text,
   View,
 } = React;
+
+var regionText = {
+  latitude: '0',
+  longitude: '0',
+  latitudeDelta: '0',
+  longitudeDelta: '0',
+};
 
 var Hook = React.createClass({
   render: function() {
