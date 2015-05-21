@@ -19,21 +19,35 @@ var regionText = {
 };
 
 var Hook = React.createClass({
+  propTypes: {
+    region: React.PropTypes.shape({
+      latitude: React.PropTypes.number.isRequired,
+      longitude: React.PropTypes.number.isRequired,
+      latitudeDelta: React.PropTypes.number.isRequired,
+      longitudeDelta: React.PropTypes.number.isRequired,
+    }),
+    onChange: React.PropTypes.func.isRequired,
+  },
+
+  getInitialState: function() {
+    return {
+      region: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0,
+        longitudeDelta: 0,
+      }
+    };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({
+      region: nextProps.region || this.getInitialState().region
+    });
+  },
+
   render: function() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
+    
   }
 });
 
