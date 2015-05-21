@@ -5,9 +5,11 @@
 'use strict';
 
 var React = require('react-native');
+var StyleSheet = require('StyleSheet');
 var {
+  MapView,
   AppRegistry,
-  StyleSheet,
+  TextInput,
   Text,
   View,
 } = React;
