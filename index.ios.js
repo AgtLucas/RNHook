@@ -130,23 +130,110 @@ var MapRegionInput = React.createClass({
   },
 });
 
+var MapViewExample = React.createClass({
+
+  getInitialState: function() {
+    return {
+      mapRegion: null,
+      mapRegionInput: null,
+      annotations: null,
+      isFirstLoad: true,
+    };
+  },
+
+  render() {
+    return (
+      <View>
+        <MapView
+          style={styles.map}
+          onRegionChange={this._onRegionChange}
+          onRegionChangeComplete={this._onRegionChangeComplete}
+          region={this.state.mapRegion}
+          annotations={this.state.annotations}
+        />
+        <MapRegionInput
+          onChange={this._onRegionInputChanged}
+          region={this.state.mapRegionInput || undefined}
+        />
+      </View>
+    );
+  },
+
+  _getAnnotations(region) {
+    return [{
+      longitude: region.longitude,
+      latitude: region.latitude,
+      title: 'You are here, yo!',
+    }];
+  },
+
+  _onRegionChange(region) {
+    this.setState({
+      mapRegionInput: region,
+    });
+  },
+
+  _onRegionChangeComplete(region) {
+    if (this.state.isFirstLoad) {
+      this.setState({
+        mapRegionInput: region,
+        annotations: this._getAnnotations(region),
+        isFirstLoad: false,
+      });
+    }
+  },
+
+  _onRegionInputChanged(region) {
+    this.setState({
+      mapRegion: region,
+      mapRegionInput: region,
+      annotations: this._getAnnotations(region),
+    });
+  },
+
+});
+
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
+  map: {
+    height: 150,
     margin: 10,
+    borderWidth: 1,
+    borderColor: '#000000',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textInput: {
+    width: 150,
+    height: 20,
+    borderWidth: 0.5,
+    borderColor: '#aaaaaa',
+    fontSize: 13,
+    padding: 4,
+  },
+  changeButton: {
+    alignSelf: 'center',
+    marginTop: 5,
+    padding: 3,
+    borderWidth: 0.5,
+    borderColor: '#777777',
   },
 });
+
+exports.title = '<MapView>';
+exports.description = 'Base component to display maps';
+exports.examples = [
+  {
+    title: 'Map',
+    render(): ReactElement { return <MapViewExample />; }
+  },
+  {
+    title: 'Map shows user location',
+    render() {
+      return  <MapView style={styles.map} showsUserLocation={true} />;
+    }
+  }
+];
 
 AppRegistry.registerComponent('MapRegionInput', () => MapRegionInput);
