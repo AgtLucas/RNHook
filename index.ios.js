@@ -18,7 +18,7 @@ var regionText = {
   longitudeDelta: '0',
 };
 
-var Hook = React.createClass({
+var MapRegionInput = React.createClass({
   propTypes: {
     region: React.PropTypes.shape({
       latitude: React.PropTypes.number.isRequired,
@@ -149,4 +149,4 @@ var styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('Hook', () => Hook);
+AppRegistry.registerComponent('MapRegionInput', () => MapRegionInput);
